@@ -43,9 +43,18 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
 }
 
-flyway {
-	url = 'jdbc:postgresql://localhost:5432/pm'
-	user = 'postgres'
+bootRun {
+	if (project.hasProperty('openaiapikey')) {
+		environment 'OPENAI_API_KEY', project.openaiapikey
+	}
+
+	if (project.hasProperty('dburl')) {
+		environment 'DB_URL', project.dburl
+	}
+
+	if (project.hasProperty('dbpassword')) {
+		environment 'DB_PASSWORD', project.dbpassword
+	}
 }
 
 tasks.named('test') {

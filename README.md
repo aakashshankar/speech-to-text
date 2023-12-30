@@ -1,16 +1,28 @@
-# speech-to-text
-
+# Medical dictation transcriber - Server
 ## Prerequisites
 1. JDK 17 or greater
 2. Gradle 8 or greater
-3. GCP speech-to-text setup with service account keys
-4. ffmpeg tool installed
-5. PostgreSQL 15 installed (Postgres.app is a good choice)
+
+<strong>Preferably, open this project in IntelliJ Idea, which autodetects the Gradle project structure.
+</strong>
 
 ## Instructions
-1. Start a postgreSQL server and ensure a database called "pm" exists
-2. Navigate to <code> /path/to/repo/root/core </code>
-3. Run any pending migrations with <code>./gradlew flywayMigrate</code>
-4. Make sure the <code>nlp.flask.api.url</code> and <code>audio.storage.path</code> in <code>application.yml</code> are set accurately
-5. Run this command
-<code> GOOGLE_APPLICATION_CREDENTIALS=/path/to/service/account/keys.json ./gradlew bootRun </code> 
+This server is hosted on [Railway](https://railway.app/). To run locally, a few environment variables need to be set:
+1. `OPENAI_API_KEY`: The API key for OpenAI.
+2. `DB_URL`: The URL for the postgres database hosted on [Supabase](https://supabase.com).
+3. `DB_PASSWORD`: The password for the postgres database.
+
+For convenience, I have already hardcoded these values in my application.yml file, and the Railway deployment. 
+Since these are sensitive values, they will be passed dynamically via the command line.
+4. Open the project in the IDE, and navigate to the `core` folder
+5. Run the following command:
+
+For MacOS / Linux
+```shell
+./gradlew bootRun
+```
+
+For Windows
+```shell
+gradlew.bat bootRun
+```

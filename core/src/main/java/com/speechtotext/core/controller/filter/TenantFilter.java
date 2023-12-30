@@ -65,7 +65,7 @@ public class TenantFilter extends OncePerRequestFilter {
         return request.getRequestURI().startsWith("/webjars/")
                 || request.getRequestURI().startsWith("/css/")
                 || request.getRequestURI().startsWith("/js/")
-                || request.getRequestURI().startsWith("/.ico");
+                || request.getRequestURI().startsWith("/.*.ico");
     }
 
     private String getTenant(HttpServletRequest request) {

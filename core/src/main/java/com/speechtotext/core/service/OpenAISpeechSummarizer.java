@@ -14,6 +14,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class OpenAISpeechSummarizer implements TranscriptSummarizer {
@@ -57,8 +59,8 @@ public class OpenAISpeechSummarizer implements TranscriptSummarizer {
 
     private static String createRequestBody(String transcript) {
         try {
-            OpenAISummarizeRequest request = MAPPER.readValue(ResourceUtils.getFile("classpath:prompt.json"),
-                    OpenAISummarizeRequest.class);
+            Path prompt = Paths.get("src/main/resources/prompt.json");
+            OpenAISummarizeRequest request = MAPPER.readValue(prompt.toFile(), OpenAISummarizeRequest.class);
             OpenAIMessageRequest msg = request.getMessages().get(3);
             msg.setContent(msg.getContent() + transcript);
             return MAPPER.writeValueAsString(request);
